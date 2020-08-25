@@ -10,7 +10,8 @@ public class prime {
 		System.out.println("enter a number");
 		int n = scn.nextInt();
 		int flag = 0;
-		for (int i = 2; i <= n / 2; i++) {
+//		2 to sqrtn still optimized
+		for (int i = 2; i <= Math.sqrt(n); i++) {
 			if (n % i == 0) {
 				flag = 1;
 				System.out.println("non-prime");
