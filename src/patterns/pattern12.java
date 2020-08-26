@@ -19,15 +19,18 @@ public class pattern12 {
 
 			int cst = 1;
 			while (cst <= nst) {
-				System.out.print("*");
-				System.out.print(" ");
+				if (cst % 2 == 0) {
+					System.out.print("!");
+				} else {
+					System.out.print("*");
+				}
 				cst++;
 			}
 
 			System.out.println();
 			r++;
 			nsps--;
-			nst++;
+			nst += 2;
 
 		}
 	}
