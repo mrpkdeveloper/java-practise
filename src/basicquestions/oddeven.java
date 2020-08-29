@@ -1,21 +1,19 @@
-package test;
+package basicquestions;
 
 import java.util.Scanner;
 
-public class reverseno {
+public class oddeven {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scn = new Scanner(System.in);
 		System.out.println("enter a number");
-		int n = scn.nextInt();
-		int sum = 0;
-		while (n != 0) {
-			sum = sum * 10 + n % 10;
-			n = n / 10;
-
+		int x = scn.nextInt();
+		if (x % 2 == 0) {
+			System.out.println("even");
+		} else {
+			System.out.println("odd");
 		}
-		System.out.println(sum);
 	}
 
 }
