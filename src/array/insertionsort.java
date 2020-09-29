@@ -9,6 +9,8 @@ public class insertionsort {
 			for (j = c - 1; j >= 0; j--) {
 				if (arr[j] > val) {
 					arr[j + 1] = arr[j];
+				} else {
+					break;
 				}
 			}
 			arr[j + 1] = val;

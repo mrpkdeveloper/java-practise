@@ -39,6 +39,21 @@ public class sumpairOptimised {
 
 	}
 
+	public static void insertionsort(int[] arr) {
+		for (int c = 1; c < arr.length; c++) {
+			int val = arr[c];
+			int j;
+			for (j = c - 1; j >= 0; j--) {
+				if (arr[j] > val) {
+					arr[j + 1] = arr[j];
+				} else {
+					break;
+				}
+			}
+			arr[j + 1] = val;
+		}
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scn = new Scanner(System.in);
@@ -49,6 +64,8 @@ public class sumpairOptimised {
 		}
 		int target = scn.nextInt();
 //		sumpair(arr, target);
+		insertionsort(arr);
+
 		sumpairoptimised(arr, target);
 
 	}
