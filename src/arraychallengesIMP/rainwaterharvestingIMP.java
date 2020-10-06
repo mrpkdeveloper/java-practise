@@ -1,4 +1,4 @@
-package arraychallenges;
+package arraychallengesIMP;
 
 import java.util.Scanner;
 
