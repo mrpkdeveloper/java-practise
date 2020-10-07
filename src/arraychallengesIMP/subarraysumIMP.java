@@ -41,6 +41,22 @@ public class subarraysumIMP {
 
 	}
 
+	public static void subarraysumkdanesalgo(int[] arr) {
+		int maxsofar = Integer.MIN_VALUE, maxending = 0;
+		for (int i = 0; i < arr.length; i++) {
+			maxending = maxending + arr[i];
+			if (maxsofar < maxending) {
+				maxsofar = maxending;
+			}
+			if (maxending < 0) {
+				maxending = 0;
+			}
+
+		}
+		System.out.println(maxsofar);
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scn = new Scanner(System.in);
@@ -51,7 +67,8 @@ public class subarraysumIMP {
 			for (int i = 0; i < arr.length; i++) {
 				arr[i] = scn.nextInt();
 			}
-			subarraysumoptimised(arr);
+//			subarraysumoptimised(arr);
+			subarraysumkdanesalgo(arr);
 			t--;
 		}
 
