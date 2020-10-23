@@ -35,11 +35,29 @@ public class mattrixsearch {
 
 	}
 
+	public static int matrixsearchoptimisedbest(int[][] mat, int n) {
+		int ans = 0;
+		int i = mat.length - 1, j = 0, val = mat[i][j];
+		while (j < mat[0].length && i >= 0) {
+			val = mat[i][j];
+			if (val == n) {
+				return 1;
+			} else if (val < n) {
+				j++;
+			} else {
+				i--;
+			}
+		}
+		return 0;
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[][] mat = { { 3, 30, 38 }, { 44, 52, 54 }, { 57, 60, 69 } };
 //		matrixsearch(mat, 6);
-		System.out.println(matrixsearchoptimised(mat, 23));
+//		System.out.println(matrixsearchoptimised(mat, 23));
+		System.out.println(matrixsearchoptimisedbest(mat, 52));
 
 	}
 
