@@ -1,5 +1,7 @@
 package arraychallengesIMP;
 
+import java.util.Scanner;
+
 public class mattrixsearch {
 
 	public static void matrixsearch(int[][] mat, int n) {
@@ -54,10 +56,19 @@ public class mattrixsearch {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[][] mat = { { 3, 30, 38 }, { 44, 52, 54 }, { 57, 60, 69 } };
 //		matrixsearch(mat, 6);
 //		System.out.println(matrixsearchoptimised(mat, 23));
-		System.out.println(matrixsearchoptimisedbest(mat, 52));
+		Scanner scn = new Scanner(System.in);
+		int row = scn.nextInt();
+		int col = scn.nextInt();
+		int[][] mat = new int[row][col];
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				mat[i][j] = scn.nextInt();
+			}
+		}
+		int n = scn.nextInt();
+		System.out.println(matrixsearchoptimisedbest(mat, n));
 
 	}
 
