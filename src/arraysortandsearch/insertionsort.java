@@ -1,4 +1,4 @@
-package array;
+package arraysortandsearch;
 
 public class insertionsort {
 
