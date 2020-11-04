@@ -16,6 +16,9 @@ public class sanketstrings {
 				break;
 			}
 		}
+		if (r == s.length()) {
+			r = s.length() - 1;
+		}
 		while (l < r) {
 			while (r < s.length() - 1 && s.charAt(r + 1) == ch) {
 				r++;
