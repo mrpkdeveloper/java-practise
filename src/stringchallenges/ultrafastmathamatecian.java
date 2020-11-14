@@ -9,18 +9,16 @@ public class ultrafastmathamatecian {
 		Scanner scn = new Scanner(System.in);
 		int t = scn.nextInt();
 		while (t > 0) {
-			int n = scn.nextInt();
-			int m = scn.nextInt();
-			String ans = "";
-			while (n != 0) {
-				int rem1 = n % 10;
-				int rem2 = m % 10;
-				n = n / 10;
-				m = m / 10;
-				if (rem1 == rem2) {
-					ans = "0" + ans;
+			String a = scn.next();
+			String b = scn.next();
+
+			StringBuilder ans = new StringBuilder("");
+			for (int i = 0; i < a.length(); i++) {
+
+				if (a.charAt(i) == b.charAt(i)) {
+					ans.append("0");
 				} else {
-					ans = "1" + ans;
+					ans.append("1");
 				}
 			}
 			System.out.println(ans);
