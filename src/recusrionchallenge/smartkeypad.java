@@ -4,7 +4,7 @@ public class smartkeypad {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		keypad1("301", "");
+		keypad1("33", "");
 	}
 
 	static String table[] = { " ", ".+@$", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
