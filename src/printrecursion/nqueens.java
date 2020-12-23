@@ -9,7 +9,11 @@ public class nqueens {
 
 	}
 
+	public static int a = 0;
+
 	public static int nqueens(boolean[][] board, int row) {
+		a = a + 1;
+		System.out.println(a);
 		if (row == board.length) {
 			return 1;
 		}
