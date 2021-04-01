@@ -1,5 +1,7 @@
 package arraychallengesIMP;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class formbiggestnumber {
@@ -23,20 +25,45 @@ public class formbiggestnumber {
 		System.out.println(finalno);
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scn = new Scanner(System.in);
-		int t = scn.nextInt();
-		while (t > 0) {
-			int m = scn.nextInt();
-			int[] arr = new int[m];
-			for (int i = 0; i < arr.length; i++) {
-				arr[i] = scn.nextInt();
-			}
-			biggestnumber(arr);
-			t--;
+	public static void method2(int[] arr) {
+		String[] sa = new String[arr.length];
+		for (int i = 0; i < sa.length; i++) {
+			String s = "" + arr[i];
+			sa[i] = s;
 		}
 
+		Arrays.sort(sa, new Comparator<String>() {
+			public int compare(String a, String b) {
+				String s1 = a + b;
+				String s2 = b + a;
+				return s2.compareTo(s1);
+			}
+		});
+
+		String finalans = "";
+		for (int i = 0; i < sa.length; i++) {
+			finalans += sa[i];
+		}
+		System.out.println(finalans);
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		Scanner scn = new Scanner(System.in);
+//		int t = scn.nextInt();
+//		while (t > 0) {
+//			int m = scn.nextInt();
+//			int[] arr = new int[m];
+//			for (int i = 0; i < arr.length; i++) {
+//				arr[i] = scn.nextInt();
+//			}
+//			biggestnumber(arr);
+//			t--;
+//		}
+
+		int[] arr = { 3, 30, 34, 5, 9 };
+		method2(arr);
 	}
 
 }
