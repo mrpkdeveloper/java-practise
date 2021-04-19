@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+import Graph.graph.Graph.edgepair;
+
 public class graph {
 
 	public static class Graph {
@@ -63,6 +65,7 @@ public class graph {
 			return false;
 		}
 
+		// add edge bidirectionaly
 		public void addedge(String vname1, String vname2, int cost) {
 			HashMap<String, Integer> nbrv1 = vtces.get(vname1).nbrs;
 			HashMap<String, Integer> nbrv2 = vtces.get(vname2).nbrs;
@@ -72,7 +75,8 @@ public class graph {
 			}
 
 			nbrv1.put(vname2, cost);
-			nbrv2.put(vname1, cost);
+			// comment below line if u want unidirectinal graph
+//			nbrv2.put(vname1, cost);
 		}
 
 		public void removeedge(String vname1, String vname2) {
@@ -498,6 +502,8 @@ public class graph {
 
 		}
 
+		// works for both directed and undirected graph but fails for -ve wt
+		// ElogV // same like prims
 		public void dijkstra() {
 
 			PriorityQueue<pairdijk> queue = new PriorityQueue<>();
@@ -533,27 +539,123 @@ public class graph {
 			}
 
 		}
+
+		// bellman ford shortest path
+		public class edgepair {
+			String v1;
+			String v2;
+			int cost;
+
+			edgepair(String v1, String v2, int cost) {
+				this.v1 = v1;
+				this.v2 = v2;
+				this.cost = cost;
+			}
+		}
+
+		public ArrayList<edgepair> getalledges() {
+			ArrayList<edgepair> list = new ArrayList<>();
+			for (String vname : vtces.keySet()) {
+
+				HashMap<String, Integer> nbr = vtces.get(vname).nbrs;
+				for (String nbrs : nbr.keySet()) {
+
+					list.add(new edgepair(vname, nbrs, nbr.get(nbrs)));
+
+				}
+
+			}
+			return list;
+		}
+
+		// time complexity is O(E*V)
+		// works for only directed graph but fails for -ve wt cycle
+		public HashMap<String, Integer> bellmanford(String src) {
+			ArrayList<edgepair> list = getalledges();
+			HashMap<String, Integer> map = new HashMap<>();
+
+			// fill map with every vname and max value
+			for (String vname : vtces.keySet()) {
+				// not putting max value as we will add and that can go beyound range
+				map.put(vname, 1000000);
+				if (vname == src) {
+					map.put(vname, 0);
+				}
+			}
+
+			// no of vertex
+			int V = vtces.size();
+			// relax every vertex v-1 times
+			for (int i = 1; i <= V; i++) {
+				for (edgepair edgepair : list) {
+					int oc = map.get(edgepair.v2);
+					int nc = map.get(edgepair.v1) + edgepair.cost;
+					if (oc > nc) {
+						if (i <= V - 1)
+							map.put(edgepair.v2, nc);
+						else
+							System.out.println("-ve weight cycle present");
+					}
+				}
+			}
+			return map;
+		}
+
+		// floyad warshall -> shortest path from each vertex to other vertex
+		// O(V^3) uses dp
+		public void floydwarshall() {
+			int[][] graph = { { 0, 3, 10000, 7 }, { 8, 0, 2, 10000 }, { 10000, 10000, 0, 1 }, { 2, 10000, 10000, 0 } };
+			int V = 4; // 4 vertex
+			int[][] dist = new int[V][V];
+			for (int i = 0; i < dist.length; i++) {
+				for (int j = 0; j < dist[0].length; j++) {
+					dist[i][j] = graph[i][j];
+				}
+			}
+
+			for (int k = 0; k < V; k++) {
+				for (int i = 0; i < V; i++) {
+					for (int j = 0; j < V; j++) {
+						int oc = dist[i][j];
+						int nc = dist[i][k] + dist[k][j];
+						if (nc < oc) {
+							dist[i][j] = nc;
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < dist.length; i++) {
+				for (int j = 0; j < dist.length; j++) {
+					System.out.print(dist[i][j] + " ");
+				}
+				System.out.println();
+			}
+
+		}
+
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Graph graph = new Graph();
 		graph.addvtces("A");
-		graph.addvtces("H");
+		graph.addvtces("B");
 		graph.addvtces("C");
 		graph.addvtces("D");
 		graph.addvtces("E");
-		graph.addvtces("F");
-		graph.addvtces("G");
+//		graph.addvtces("F");
+//		graph.addvtces("G");
 
-		graph.addedge("A", "H", 1);
-		graph.addedge("H", "C", 2);
-		graph.addedge("A", "D", 3);
-		graph.addedge("C", "D", 0);
-		graph.addedge("D", "E", 5);
-		graph.addedge("E", "F", 6);
-		graph.addedge("E", "G", 7);
-		graph.addedge("F", "G", 8);
+		graph.addedge("A", "B", 8);
+		graph.addedge("A", "C", 4);
+		graph.addedge("A", "D", 5);
+		graph.addedge("C", "D", -3);
+		graph.addedge("D", "E", 4);
+		graph.addedge("E", "B", -10);
+//		graph.addedge("E", "B", 1);
+		graph.addedge("B", "E", 2);
+//		graph.addedge("F", "G", 8);
 
 		graph.display();
 
@@ -566,20 +668,28 @@ public class graph {
 //		System.out.println(graph.noofedges());
 //		System.out.println(graph.haspath("A", "C"));
 //		graph.BFS("A", "F", new HashMap<String, Boolean>());
-		graph.DFS("A", "F");
+//		graph.DFS("A", "F");
 //		graph.BFT(new HashMap<String, Boolean>());
 		System.out.println();
 //		graph.DFT(new HashMap<String, Boolean>());
 //		graph.removeedge("D", "E");
 //		graph.removeedge("D", "C");
 //		graph.removeedge("E", "G");
-		System.out.println(graph.iscyclic());
-		System.out.println(graph.isconnected());
-		System.out.println(graph.istree());
-		System.out.println(graph.getcomponents());
-		graph.prims();
-		System.out.println();
+//		System.out.println(graph.iscyclic());
+//		System.out.println(graph.isconnected());
+//		System.out.println(graph.istree());
+//		System.out.println(graph.getcomponents());
+//		graph.prims();
 		graph.dijkstra();
+		System.out.println();
+//		ArrayList<edgepair> list = graph.getalledges();
+//		for (edgepair edgepair : list) {
+//			System.out.println(edgepair.v1 + " - " + edgepair.v2 + " @ " + edgepair.cost);
+//		}
+
+		System.out.println(graph.bellmanford("A"));
+		System.out.println();
+		graph.floydwarshall();
 
 	}
 
